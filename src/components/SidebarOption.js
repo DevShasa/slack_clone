@@ -1,8 +1,17 @@
 import React from 'react'
 import styled from "styled-components";
 function SidebarOption({ Icon, title, addChanel, id }) {
+
+    const newChannel = () =>{
+        console.log("New channel added")
+    }
+
+    const selectChannel = () =>{
+        console.log("Channel selected")
+    }
+
     return (
-        <SidebarOptionContainer onClick={console.log("Sidebar has been clicked")}>
+        <SidebarOptionContainer onClick={addChanel ? newChannel : selectChannel}>
             {Icon &&  <Icon />}
 
             {/* if an icon is present the second child is the title
