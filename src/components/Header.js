@@ -68,12 +68,13 @@ const HeaderAvatar = styled(Avatar)`
 
 const HeaderSearch = styled.div`
     flex: 0.4;
-    opacity: 1;
+    /* opacity: 1; */
     border-radius: 6px;
     background-color: #421f44;
     display: flex;
     padding: 3px 50px 3px 50px; 
     border: 1px solid gray;
+    color: gray;
 
     input{
         background-color: transparent;
@@ -92,8 +93,10 @@ const HeaderSearch = styled.div`
 const HeaderRight = styled.div`
     flex: 0.3;
     display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     > .MuiSvgIcon-root{
-        margin-left: auto;
+        /* margin-left: auto; */
         margin-right: 20px;
     }
 `;
