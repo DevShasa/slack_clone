@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Ubuntu&display=swap');
 :root{
   box-sizing: border-box;
   --slack-color: #3f0f40;
@@ -13,8 +14,7 @@ body {
   font-family: 'Ubuntu', sans-serif;
   overflow: hidden;
 }
-
-colors{
-  background-color: #4d2f4e;
-  color: rgb(168, 168, 168);
+h1,h2,h3,h4{
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.6px;
 }
