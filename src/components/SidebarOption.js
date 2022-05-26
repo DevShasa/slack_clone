@@ -1,9 +1,22 @@
 import React from 'react'
 import styled from "styled-components";
+import { db } from "../firebase/Firebase";
+import { collection, addDoc } from "firebase/firestore"
+
 function SidebarOption({ Icon, title, addChanel, id }) {
 
-    const newChannel = () =>{
-        console.log("New channel added")
+
+    const NewChannel = async() =>{
+        const channelName = prompt('Please enter the channel Name')
+
+
+        if(channelName){
+            // create a new collection, messages will be collection documents
+            const docRef = await addDoc(collection(db, "rooms"),{
+                name : channelName.trim()
+            });
+            console.log("new room created with id: " + docRef.id)
+        }
     }
 
     const selectChannel = () =>{
@@ -11,7 +24,7 @@ function SidebarOption({ Icon, title, addChanel, id }) {
     }
 
     return (
-        <SidebarOptionContainer onClick={addChanel ? newChannel : selectChannel}>
+        <SidebarOptionContainer onClick={addChanel ? NewChannel : selectChannel}>
             {Icon &&  <Icon />}
 
             {/* if an icon is present the second child is the title

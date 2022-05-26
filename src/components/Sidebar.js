@@ -13,15 +13,23 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { collection  } from "firebase/firestore"
+import { db } from "../firebase/Firebase";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Sidebar() {
+
+    const [ rooms, loading, /*error*/ ] = useCollection(collection(db, "rooms"))
+    console.log(rooms)
+
     return (
         <SidebarContainer>
             <SidebarHeader>
                 <SidebarInfo>
                     <h2>Wolan Sha</h2>
                     <h3>
-                        <FiberManualRecordIcon />
+                        <FiberManualRecordIcon />  
                         User Name
                     </h3>
                 </SidebarInfo>
@@ -41,7 +49,16 @@ function Sidebar() {
             <hr/>
             <SidebarOption Icon={AddIcon} title="Add Channel" addChanel/>
 
-            <SidebarOption title="Tanzania"/>
+            {loading 
+                ? <SidebarLoading> <CircularProgress sx={{color:"#ffffff"}} /> </SidebarLoading>
+                : (
+                    rooms?.docs.map((doc)=>(
+                        <SidebarOption key={doc.id} id={doc.id} title={doc.data().name}/>
+                    ))
+                )
+            }
+
+
 
         </SidebarContainer>
     )
@@ -111,4 +128,9 @@ const SidebarInfo = styled.div`
         color: green;
         margin-top: 1px;
     }
+`;
+
+const SidebarLoading = styled.div`
+    display: flex;
+    justify-content: center;
 `;

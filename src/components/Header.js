@@ -13,7 +13,7 @@ function Header() {
                 <HeaderAvatar  
                     src =""
                     alt = {``}
-                    onClick = {``}
+                    onClick = {()=>(console.log("Header clicked"))}
                 />
                 <AccessTimeIcon />
             </HeaderLeft>
