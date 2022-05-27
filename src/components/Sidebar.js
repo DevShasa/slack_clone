@@ -20,6 +20,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 function Sidebar() {
 
+    // React firebase hooks 
     const [ rooms, loading, /*error*/ ] = useCollection(collection(db, "rooms"))
     console.log(rooms)
 

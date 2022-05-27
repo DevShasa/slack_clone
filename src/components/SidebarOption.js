@@ -9,7 +9,6 @@ function SidebarOption({ Icon, title, addChanel, id }) {
     const NewChannel = async() =>{
         const channelName = prompt('Please enter the channel Name')
 
-
         if(channelName){
             // create a new collection, messages will be collection documents
             const docRef = await addDoc(collection(db, "rooms"),{
