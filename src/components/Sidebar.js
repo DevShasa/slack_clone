@@ -22,7 +22,6 @@ function Sidebar() {
 
     // React firebase hooks 
     const [ rooms, loading, /*error*/ ] = useCollection(collection(db, "rooms"))
-    console.log(rooms)
 
     return (
         <SidebarContainer>
@@ -68,6 +67,7 @@ function Sidebar() {
 export default Sidebar
 
 const SidebarContainer = styled.div`
+    padding-top:60px;
     background-color: var(--slack-color);
     color: rgb(236, 236, 236);
     flex: 0.3;

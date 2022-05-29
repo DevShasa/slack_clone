@@ -42,7 +42,8 @@ const HeaderContainer = styled.div`
     padding: 10px 0;
     background-color: var(--slack-color);
     color: white;
-    position: sticky;
+    position: fixed;
+    width:100%;
     top:0;
 `;
 
