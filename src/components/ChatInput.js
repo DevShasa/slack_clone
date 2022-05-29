@@ -5,20 +5,7 @@ import { addDoc, serverTimestamp} from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { setLoadingTrue, setLoadingFalse } from "../redux/appSlice";
 
-// db.collection("users").doc(user?.id).collection("orders").doc(paymentIntent.id).set({
-//             basket: basket,
-//             amount: paymentIntent.amount,
-//             created: paymentIntent.created,
-//         });
-
-// const paymentRef = doc(db, "users", user?.id, "orders", paymentIntent.id);
-// setDoc(paymentRef, {
-//     basket: basket,
-//     amount: paymentIntent.amount,
-//     created: paymentIntent.created,
-// });
-
-function ChatInput({ roomId, channelName }) {
+function ChatInput({ roomId, channelName, chatRef }) {
 
     const [input, setInput] = useState("")
     const dispatch = useDispatch()
@@ -37,12 +24,19 @@ function ChatInput({ roomId, channelName }) {
         }
 
         dispatch(setLoadingTrue());
-        const chatRef = await addDoc(collection(db, "rooms", roomId, "messages"),{
+        const newMsg = await addDoc(collection(db, "rooms", roomId, "messages"),{
             message: input,
             timestamp: serverTimestamp(),
             user: "Wolande"
         });
         dispatch(setLoadingFalse());
+        console.log(`New message added with id: `, newMsg.id)
+
+        // scroll the div with ref={chatref} into view
+        // Makes the last message pop up onscreen 
+        chatRef?.current?.scrollIntoView({
+            behavior: "smooth"
+        })
 
         setInput("")
     }
@@ -92,3 +86,18 @@ const ChatInputContainer = styled.div`
     }
 
 `;
+
+
+
+// db.collection("users").doc(user?.id).collection("orders").doc(paymentIntent.id).set({
+//             basket: basket,
+//             amount: paymentIntent.amount,
+//             created: paymentIntent.created,
+//         });
+
+// const paymentRef = doc(db, "users", user?.id, "orders", paymentIntent.id);
+// setDoc(paymentRef, {
+//     basket: basket,
+//     amount: paymentIntent.amount,
+//     created: paymentIntent.created,
+// });

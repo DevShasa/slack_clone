@@ -71,7 +71,7 @@ function Chat() {
                 <ChatBottom ref ={chatRef}/>
             </ChatMessages>
 
-            <ChatInput channelName roomId={roomId}/>
+            <ChatInput channelName roomId={roomId} chatRef={chatRef}/>
 
         </ChatContainer>
     )
@@ -80,7 +80,7 @@ function Chat() {
 export default Chat
 
 const ChatBottom = styled.div`
-    padding-bottom: 200px;
+    padding-bottom: 100px;
 `;
 
 const ChatMessages = styled.div`
