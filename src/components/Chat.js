@@ -7,7 +7,7 @@ import ChatInput from './ChatInput';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { db, collection } from "../firebase/Firebase";
-import { doc, orderBy } from 'firebase/firestore';
+import { doc, orderBy, query } from 'firebase/firestore';
 import Message from "./Message";
 import defaultUserImg from "../userImage.png";
 
@@ -25,7 +25,7 @@ function Chat() {
     // get messages
     // const q = query(collection(db, "rooms", roomId, "messages"), orderBy("timestamp", 'desc'));
     const [ roomMessages, roomMsgLoading ] = useCollection(
-        roomId && collection(db, "rooms", roomId, "messages"), orderBy("timestamp", "desc")
+        roomId && query(collection(db, "rooms", roomId, "messages"), orderBy("timestamp", "asc"))
     )
     
     const chatRef = useRef(null)
@@ -38,19 +38,22 @@ function Chat() {
     return (
         <ChatContainer>
             <Header>
-                <HeaderLeft>
-                    <h4>{room?.data().name}</h4>
-                    <StarBorderOutlinedIcon />
-                </HeaderLeft>
+                <HeaderContent>
+                    <HeaderLeft>
+                        <h4>{room?.data().name}</h4>
+                        <StarBorderOutlinedIcon />
+                    </HeaderLeft>
 
-                <HeaderRight>
-                    <p>
-                        <InfoOutlinedIcon /> Details
-                    </p>
-                </HeaderRight>
+                    <HeaderRight>
+                        <p>
+                            <InfoOutlinedIcon /> Details
+                        </p>
+                    </HeaderRight>
+                </HeaderContent>
+                {messageLoading && <LinearProgress color="success"/>}
+                {roomMsgLoading && <LinearProgress color="primary"/>}
             </Header>
-            {messageLoading && <LinearProgress color="success"/>}
-            {roomMsgLoading && <LinearProgress color="primary"/>}
+
             <ChatMessages>
                 { roomMessages?.docs.map((doc)=>{
                     const { message, timestamp, user, /*userImage*/ } = doc.data();
@@ -101,15 +104,20 @@ const ChatContainer = styled.div`
 `;
 
 const Header = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    border-bottom: 1px solid lightgray;
     position: sticky;
     top: 60px;
     z-index: 10;
     background-color: white;
 `;
+
+const HeaderContent = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid lightgray;
+
+`;
+
 
 const HeaderLeft = styled.div`
     display:flex;
