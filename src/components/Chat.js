@@ -10,6 +10,7 @@ import { db, collection } from "../firebase/Firebase";
 import { doc, orderBy, query } from 'firebase/firestore';
 import Message from "./Message";
 import defaultUserImg from "../userImage.png";
+import Stack from '@mui/material/Stack';
 
 function Chat() {
     //todo fetch the id from redux and use it to fetch room data
@@ -37,7 +38,7 @@ function Chat() {
 
     return (
         <ChatContainer>
-            {room && roomMessages &&(
+            {room && roomMessages ? (
                 <>
                     <Header>
                         <HeaderContent>
@@ -74,6 +75,12 @@ function Chat() {
                     </ChatMessages>
                     <ChatInput channelName={room?.data().name} roomId={roomId} chatRef={chatRef}/>
                 </>
+            ):(
+                <Stack sx={{ width: '100%', color: 'grey.500', marginTop:"70px" }} spacing={2}>
+                    <LinearProgress color="secondary" />
+                    <LinearProgress color="success" />
+                    <LinearProgress color="inherit" />
+                </Stack>
             )}
         </ChatContainer>
     )
