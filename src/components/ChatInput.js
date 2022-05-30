@@ -53,7 +53,6 @@ function ChatInput({ roomId, channelName, chatRef }) {
                         SEND
                     </button>
                 </div>
-
             </form>
         </ChatInputContainer>
     )
