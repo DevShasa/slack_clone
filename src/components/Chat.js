@@ -58,7 +58,7 @@ function Chat() {
 
                     <ChatMessages>
                         { roomMessages?.docs.map((doc)=>{
-                            const { message, timestamp, user, /*userImage*/ } = doc.data();
+                            const { message, timestamp, user, userImage } = doc.data();
 
                             return(
                                 <Message 
@@ -66,7 +66,7 @@ function Chat() {
                                     message ={message}
                                     timestamp = {timestamp}
                                     user = {user}
-                                    userImage = {defaultUserImg}
+                                    userImage = {userImage ? userImage : defaultUserImg}
                                 />
                             )
                         })}
@@ -86,8 +86,7 @@ const ChatBottom = styled.div`
 `;
 
 const ChatMessages = styled.div`
-    /* position: relative;
-    z-index: ; */
+    margin-top: 60px;
 `;
 
 const ChatContainer = styled.div`

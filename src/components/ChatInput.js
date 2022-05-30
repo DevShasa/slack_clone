@@ -4,9 +4,12 @@ import { db, collection } from "../firebase/Firebase";
 import { addDoc, serverTimestamp} from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { setLoadingTrue, setLoadingFalse } from "../redux/appSlice";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth} from "../firebase/Firebase";
 
 function ChatInput({ roomId, channelName, chatRef }) {
 
+    const [user] = useAuthState(auth)
     const [input, setInput] = useState("")
     const dispatch = useDispatch()
 
@@ -27,7 +30,8 @@ function ChatInput({ roomId, channelName, chatRef }) {
         const newMsg = await addDoc(collection(db, "rooms", roomId, "messages"),{
             message: input,
             timestamp: serverTimestamp(),
-            user: "Wolande"
+            user: user.displayName,
+            userImage: user.photoURL
         });
         dispatch(setLoadingFalse());
         console.log(`New message added with id: `, newMsg.id)

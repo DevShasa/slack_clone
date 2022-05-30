@@ -4,16 +4,26 @@ import Avatar from '@mui/material/Avatar';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SearchIcon from '@mui/icons-material/Search';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { auth, signOut, db } from "../firebase/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useDocument } from "react-firebase-hooks/firestore";
+import { useSelector } from "react-redux";
+import { doc } from 'firebase/firestore';
 
 function Header() {
+
+    const { roomId } = useSelector(state => state.app)
+    const [ roomDetails ] = useDocument( roomId && doc(db, 'rooms', roomId))
+    const [ user ] = useAuthState(auth)
+
     return (
         <HeaderContainer>
 
             <HeaderLeft>
                 <HeaderAvatar  
-                    src =""
-                    alt = {``}
-                    onClick = {()=>(console.log("Header clicked"))}
+                    src ={user?.photoURL}
+                    alt = {user?.displayName}
+                    onClick = {()=>signOut(auth)}
                 />
                 <AccessTimeIcon />
             </HeaderLeft>
@@ -21,7 +31,7 @@ function Header() {
             <HeaderSearch>
                 <SearchIcon />
                 <input 
-                    placeholder='Search Here'
+                    placeholder={`Search ${roomId && roomDetails ? roomDetails?.data().name : "channel"}`}
                 />
             </HeaderSearch>
 
