@@ -107,7 +107,7 @@ const Header = styled.div`
     position: sticky;
     top: 60px;
     z-index: 10;
-    background-color: white;
+    background-color: #ffffff;
 `;
 
 const HeaderContent = styled.div`
