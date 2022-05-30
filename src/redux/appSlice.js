@@ -6,7 +6,7 @@ export const appSlice = createSlice({
   
   //initialState
   initialState: {
-      roomId: null,
+      roomId: 'd2VRa0r7HAlmCSaZb9OY',
       messageLoading: false, 
   },
 

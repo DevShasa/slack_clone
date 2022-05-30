@@ -17,20 +17,23 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection  } from "firebase/firestore"
 import { db } from "../firebase/Firebase";
 import CircularProgress from '@mui/material/CircularProgress';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from "../firebase/Firebase";
 
 function Sidebar() {
 
     // React firebase hooks 
     const [ rooms, loading, /*error*/ ] = useCollection(collection(db, "rooms"))
+    const [ user ] = useAuthState(auth)
 
     return (
         <SidebarContainer>
             <SidebarHeader>
                 <SidebarInfo>
-                    <h2>Wolan Sha</h2>
+                    <h2>{user.displayName}</h2>
                     <h3>
                         <FiberManualRecordIcon />  
-                        User Name
+                        {user.email}
                     </h3>
                 </SidebarInfo>
                 <CreateIcon />
