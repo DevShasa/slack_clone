@@ -45,7 +45,7 @@ function ChatInput({ roomId, channelName, chatRef }) {
         <ChatInputContainer>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <input placeholder = {`Message #Room`}
+                    <input placeholder = {`Message #${channelName}`}
                     value = {input}
                     onChange = {(e) => setInput(e.target.value)}
                         />
@@ -77,7 +77,6 @@ const ChatInputContainer = styled.div`
     }
     > form > div > input{
         flex: 1;
-        height: 100%;
         padding: 20px;
         outline: none;
         border: 1px solid gray;
