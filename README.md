@@ -1,4 +1,4 @@
-# Slack clone built with react and firebase
+# Slack clone built with react and google firebase
 ## Technologies Used 
 - React
 - Firebase/firestore/auth
